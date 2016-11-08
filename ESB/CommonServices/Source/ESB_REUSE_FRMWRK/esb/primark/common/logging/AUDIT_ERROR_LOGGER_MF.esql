@@ -1,0 +1,184 @@
+BROKER SCHEMA esb.primark.common.logging
+
+/*
+PROJECT    	VERSION    DATE        AUTHOR    CHANGE HISTORY
+AUSTRIA     0.1		   20/09/16	   Vidya R	 Initial Draft - Logging Audit and exceptionl events in File
+
+*/
+
+DECLARE FLOW_DETAIL_CACHE SHARED ROW;
+CREATE COMPUTE MODULE AUDIT_ERROR_LOGGER_MF_Cache_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		
+		IF NOT EXISTS(FLOW_DETAIL_CACHE.flownames[]) THEN
+			PROPAGATE TO TERMINAL 'out';
+		ELSE
+			PROPAGATE TO TERMINAL 'out1';
+		END IF;
+		
+		RETURN FALSE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
+CREATE COMPUTE MODULE Common_Logger_MsgFlow_NonDB_Msg
+
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		
+		 DELETE FIELD OutputRoot.XMLNSC;
+	 	 DECLARE wmb NAMESPACE 'http://www.ibm.com/xmlns/prod/websphere/messagebroker/6.1.0/monitoring/event';
+		 DECLARE inRefEventPointData REFERENCE TO InputRoot.XMLNSC.wmb:event.wmb:eventPointData;
+	 	 DECLARE inRefApplicationData REFERENCE TO InputRoot.XMLNSC.wmb:event.wmb:applicationData;
+	 	 DECLARE inRefEventData REFERENCE TO inRefEventPointData.wmb:eventData;
+	 	 DECLARE inRefSimpleContent REFERENCE TO inRefApplicationData.wmb:simpleContent;
+	 	 DECLARE inRefEventSequence REFERENCE TO inRefEventData.wmb:eventSequence;
+	 	 DECLARE inRefEventCorrelation REFERENCE TO inRefEventData.wmb:eventCorrelation;
+	 	 DECLARE inRefEventIdentity REFERENCE TO inRefEventData.wmb:eventIdentity;
+	 	 DECLARE inRefbitstreamData REFERENCE TO InputRoot.XMLNSC.wmb:event.wmb:bitstreamData;
+	 	 DECLARE inRef REFERENCE TO Environment.XMLNSC;
+		 DECLARE inConfig REFERENCE TO inRef.config;
+	 	 DECLARE brokername REFERENCE TO inRefEventPointData.wmb:messageFlowData.wmb:broker.(XMLNSC.Attribute)wmb:name ;
+	 	 DECLARE uniqueFlowName CHARACTER inRefEventPointData.wmb:messageFlowData.wmb:messageFlow.(XMLNSC.Attribute)wmb:name ;
+	 	 DECLARE productVersion CHARACTER inRefEventData.(XMLNSC.Attribute)wmb:productVersion ;
+	 	 DECLARE executionGroup CHARACTER inRefEventPointData.wmb:messageFlowData.wmb:executionGroup.(XMLNSC.Attribute)wmb:name ;
+	 	 DECLARE auditPoint CHARACTER inRefEventData.(XMLNSC.Attribute)wmb:eventSourceAddress ;
+	 	 DECLARE auditType CHARACTER inRefEventIdentity.(XMLNSC.Attribute)wmb:eventName ;
+	 	 
+	 	 IF NOT EXISTS(FLOW_DETAIL_CACHE.flownames[]) THEN
+			SET FLOW_DETAIL_CACHE.flownames[] = SELECT A FROM inConfig.flow[] AS A ;
+		 END IF;
+	 	 
+		 DECLARE EnvRef REFERENCE TO Environment.Variables;
+		 SET Environment.flowsDetail[] = SELECT A FROM FLOW_DETAIL_CACHE.flownames[] AS A WHERE A.flowname = uniqueFlowName ;
+	 	 DECLARE cacheRef REFERENCE TO Environment.flowsDetail;
+		 DECLARE cursorSimpleContent REFERENCE TO inRefApplicationData.wmb:simpleContent[1];  
+		
+		 WHILE LASTMOVE(cursorSimpleContent) DO                                            
+  			SET EnvRef.{FIELDVALUE(cursorSimpleContent.(XMLNSC.Attribute)wmb:name)} = FIELDVALUE(cursorSimpleContent.(XMLNSC.Attribute)wmb:value);                      
+  		 MOVE cursorSimpleContent NEXTSIBLING REPEAT NAME; 
+		 END WHILE;
+	
+	 	 CREATE LASTCHILD OF OutputRoot DOMAIN 'XMLNSC';
+	 	 DECLARE outRefXMLNSC REFERENCE TO OutputRoot.XMLNSC;
+	 	 CREATE FIELD outRefXMLNSC.LogMessage;
+	 	 DECLARE logMsgRef REFERENCE TO outRefXMLNSC.LogMessage;
+	 	 CREATE FIELD logMsgRef.Log;
+	 	 DECLARE logRef REFERENCE TO logMsgRef.Log;
+	 	 
+	 	 SET logRef.MessageType = 'Audit_Message';
+	 	 SET logRef.TimeStamp = inRefEventSequence.(XMLNSC.Attribute)wmb:creationTime;
+	 	 SET logRef.GlobalTransactionId = inRefEventCorrelation.(XMLNSC.Attribute)wmb:globalTransactionId;
+	 	 SET logRef.LocalTransactionId = inRefEventCorrelation.(XMLNSC.Attribute)wmb:localTransactionId;
+	 	 SET logRef.ParentTransactionId = inRefEventCorrelation.(XMLNSC.Attribute)wmb:parentTransactionId;
+	 	 SET logRef.ProjectName         = cacheRef.projectname;
+		 SET logRef.InterfaceName       = cacheRef.interface;
+		 SET logRef.SourceApplicationName        = cacheRef.source;
+		 SET logRef.TargetApplicationName        = cacheRef.target;
+		 SET logRef.ToolName            = 'Message Broker';
+		 SET logRef.Version             = productVersion;
+		 SET logRef.BrokerName          = brokername;
+		 SET logRef.ExecutionGroup      = executionGroup;
+		 SET logRef.Flowname            = uniqueFlowName;
+		 SET logRef.AuditPoint          = auditPoint;
+		 SET logRef.AuditType           = auditType;
+		 SET logRef.QueueManager        = TRIM(EnvRef.ReplyToQMgr);
+		 SET logRef.InputQueue          = EnvRef.SourceQueue;
+		 SET logRef.MessageId           = EnvRef.MessageId;
+		 SET logRef.PutDate             = EnvRef.PutDate;
+		 SET logRef.PutTime             = EnvRef.PutTime;
+		 SET logRef.CodedCharSetId      = EnvRef.CodedCharSetId;
+		 SET logRef.Encoding            = EnvRef.Encoding;
+		 SET logRef.MessageSet          = EnvRef.MessageSet;
+		 SET logRef.MessageFormat       = EnvRef.MessageFormat;
+		 SET logRef.IsPersistant        = EnvRef.IsPersistant;
+		 
+		 IF inRefEventIdentity.(XMLNSC.Attribute)wmb:eventName IN ('Inbound_Event','Outbound_Event') THEN
+			 SET logRef.OriginalMessage     = CAST(inRefbitstreamData.wmb:bitstream AS CHARACTER); 
+			 SET OutputRoot.Properties.MessageType = '{}:LogMessage'; 
+	 	 ELSE
+		 	 SET logRef.MessageType = 'Exception_Message';
+		 	 SET logRef.Severity = cacheRef.Severity;
+		 	 DECLARE EXCEPTIONBLOB BLOB ASBITSTREAM(inRefApplicationData.wmb:complexContent.ExceptionList); 
+			 DECLARE FULLEXCEPTION CHAR CAST(EXCEPTIONBLOB AS CHAR CCSID 1208); 
+			 SET logRef.ExceptionMessage   = FULLEXCEPTION;
+			 SET logRef.OriginalMessage     = CAST(inRefbitstreamData.wmb:bitstream AS CHARACTER);
+			 SET OutputRoot.XMLNSC.LogExcMessage = OutputRoot.XMLNSC.LogMessage;
+			 DELETE FIELD OutputRoot.XMLNSC.LogMessage;
+			 SET OutputRoot.Properties.MessageType = '{}:LogExcMessage';
+	 	 END IF;
+	 	 
+	 	 SET OutputRoot.DFDL = OutputRoot.XMLNSC;
+	 	 
+		 DELETE FIELD OutputRoot.XMLNSC;
+		 
+--		 SET OutputLocalEnvironment.Destination.File.Directory = 'C:\Users\377666\Downloads\Common services';
+		 IF inRefEventIdentity.(XMLNSC.Attribute)wmb:eventName IN ('Inbound_Event','Outbound_Event') THEN
+		 SET OutputLocalEnvironment.Destination.File.Name = 'AUDIT_'||CAST(CURRENT_DATE AS CHARACTER FORMAT 'yyyyMMdd')||'.txt';
+		 ELSE
+		 SET OutputLocalEnvironment.Destination.File.Name = 'EXCEPTION_'||CAST(CURRENT_DATE AS CHARACTER FORMAT 'yyyyMMdd')||'.txt'; 	
+		 END IF;
+		 
+		RETURN TRUE;
+	END;
+
+	-- Copy Input Root Header to Output Root Header
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	-- Copy Input message to Output message
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
+CREATE COMPUTE MODULE Common_Logger_MsgFlow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
+		SET OutputRoot.XMLNSC.ErrorMessage.ActualMessage = InputBody;
+		SET OutputRoot.XMLNSC.ErrorMessage.ExceptionList = InputExceptionList;
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
