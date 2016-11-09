@@ -1,0 +1,141 @@
+BROKER SCHEMA esb.primark.common.email
+
+
+DECLARE EMAIL_LIST_CACHE SHARED ROW;
+CREATE COMPUTE MODULE EmailNotification_CheckCache
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		IF NOT EXISTS(EMAIL_LIST_CACHE.flow[]) THEN
+			PROPAGATE TO TERMINAL 'out';
+		ELSE
+			PROPAGATE TO TERMINAL 'out1';
+		END IF;
+		RETURN FALSE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
+
+CREATE COMPUTE MODULE EmailNotification_PrepareEmailMsg
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		
+		-- Variable declaration
+			DECLARE SeverityLevel CHARACTER '5';
+			DECLARE wmb NAMESPACE 'http://www.ibm.com/xmlns/prod/websphere/messagebroker/6.1.0/monitoring/event';
+			DECLARE EmailBodySeparator CHARACTER ' : ';	
+			DECLARE CcsidValue INTEGER COALESCE(InputRoot.MQMD.CodedCharSetId,InputProperties.CodedCharSetId,1208);
+			DECLARE CR CHAR CAST(CAST(X'0D0A' AS BLOB) AS CHAR CCSID CcsidValue); 
+			DECLARE LF CHAR CAST(CAST(X'0D' AS BLOB) AS CHAR CCSID CcsidValue); 
+			DECLARE CRLF CHARACTER CR||LF; 
+			DECLARE inFlowName CHARACTER InputRoot.XMLNSC.wmb:event.wmb:eventPointData.wmb:messageFlowData.wmb:messageFlow.(XMLNSC.Attribute)wmb:name ;
+			DECLARE inComplexContent REFERENCE TO InputRoot.XMLNSC.wmb:event.wmb:applicationData.wmb:complexContent;
+			DECLARE eventName CHARACTER InputRoot.XMLNSC.wmb:event.wmb:eventPointData.wmb:eventData.wmb:eventIdentity.(XMLNSC.Attribute)wmb:eventName;
+			DECLARE inRefEventCorrelation REFERENCE TO InputRoot.XMLNSC.wmb:event.wmb:eventPointData.wmb:eventData.wmb:eventCorrelation;
+			DECLARE EXCEPTIONBLOB BLOB ASBITSTREAM(inComplexContent.ExceptionList); 
+			DECLARE FULLEXCEPTION CHAR CAST(EXCEPTIONBLOB AS CHAR CCSID 1208); 
+			
+			IF NOT EXISTS(EMAIL_LIST_CACHE.flow[]) THEN
+				SET EMAIL_LIST_CACHE.flow[] = SELECT A FROM Environment.XMLNSC.config.flow[] AS A;
+			END IF;
+			
+			DECLARE EnvRef REFERENCE TO Environment.Variables;
+		 	SET Environment.flowsDetail[] = SELECT B FROM EMAIL_LIST_CACHE.flow[] AS B WHERE B.flowname = inFlowName ;
+			
+			DECLARE cacheRefFlow REFERENCE TO Environment.flowsDetail;
+			
+			IF eventName = 'Exception_Event' THEN
+				-- Generate output email message
+				SET OutputRoot.MQMD.Format = 'EmailOutputHeader';
+				SET OutputRoot.Properties.MessageFormat = 'BLOB';
+				SET OutputLocalEnvironment.Destination.Email.BodyContentType ='text/plain';
+
+				WHILE LASTMOVE(cacheRefFlow) DO
+						SET OutputRoot.EmailOutputHeader.To = COALESCE(CAST(cacheRefFlow.tolist AS CHARACTER),'smohan@primark.co.uk') ;
+						SET OutputRoot.EmailOutputHeader.Cc = COALESCE(CAST(cacheRefFlow.cclist AS CHARACTER),'');
+						SET OutputRoot.EmailOutputHeader.Bcc = COALESCE(CAST(cacheRefFlow.bcclist AS CHARACTER),'');
+						SET OutputRoot.EmailOutputHeader.From = COALESCE(CAST(cacheRefFlow.from AS CHARACTER),'admin@primark.co.uk');
+						SET SeverityLevel = COALESCE(CAST(cacheRefFlow.severity AS CHARACTER),'');
+						-- Added broker name in the email subject.
+						SET OutputRoot.EmailOutputHeader.Subject =  'Exception Alert - Integration Node : ' || BrokerName || ' | Severity : ' || SeverityLevel || ' | Flow : ' || cacheRefFlow.flowname;
+					MOVE cacheRefFlow NEXTSIBLING;
+				END WHILE;
+		
+				SET inFlowName = 'Error Report' || CRLF || '----------' || CRLF || 
+				'Message Id' || EmailBodySeparator || CAST(COALESCE(inRefEventCorrelation.(XMLNSC.Attribute)wmb:localTransactionId,'') AS CHARACTER) || CRLF || 
+				'Message Timestamp' || EmailBodySeparator || CAST(CURRENT_TIMESTAMP AS CHARACTER) || CRLF ||
+				'Message Flow' || EmailBodySeparator || inFlowName || CRLF ||
+				'Severity' || EmailBodySeparator || SeverityLevel || CRLF ||
+				'Error Source' || EmailBodySeparator || 'IIB' || CRLF || 
+				'Error Diagnostic Info' || EmailBodySeparator || CRLF || COALESCE(FULLEXCEPTION,'') || CRLF || 
+				'- IIB Administrator';
+	
+				SET OutputRoot.BLOB.BLOB =  CAST(inFlowName AS BLOB CCSID 1208);
+				
+				PROPAGATE TO TERMINAL 'out';
+				
+			END IF;
+			
+		RETURN FALSE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+END MODULE;	
+	
+
+CREATE COMPUTE MODULE EmailNotification_RestructureFailureMsg
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- Set Message Header
+		CALL CopyMessageHeaders();
+		
+		SET OutputRoot.EmailOutputHeader = NULL;
+		IF EXISTS(InputRoot.BLOB[])  THEN
+			SET OutputRoot.XMLNSC.EmailErrorMessage.ActualMessageDetails = CAST(InputRoot.BLOB.BLOB AS CHAR CCSID InputRoot.MQMD.CodedCharSetId);			
+		ELSE
+			SET OutputRoot.XMLNSC.EmailErrorMessage.ActualMessageDetails = CAST(InputRoot AS CHAR CCSID InputRoot.MQMD.CodedCharSetId);
+		END IF;
+		SET OutputRoot.XMLNSC.EmailErrorMessage.EmailOutputHeader = InputRoot.EmailOutputHeader;
+		SET OutputRoot.XMLNSC.EmailErrorMessage.ExceptionList = InputExceptionList;
+		
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+END MODULE;
+
+
+
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:csv="http://www.ibm.com/dfdl/CommaSeparatedFormat" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmDfdlExtn="http://www.ibm.com/dfdl/extensions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions">
+
+
+            <xsd:import namespace="http://www.ibm.com/dfdl/CommaSeparatedFormat" schemaLocation="IBMdefined/CommaSeparatedFormat.xsd"/>
+    <xsd:annotation>
+		<xsd:appinfo source="http://www.ogf.org/dfdl/">
+			<dfdl:format documentFinalTerminatorCanBeMissing="yes" encoding="{$dfdl:encoding}" escapeSchemeRef="csv:CSVEscapeScheme" ref="csv:CommaSeparatedFormat"/>
+		</xsd:appinfo>
+	</xsd:annotation>
+
+
+	<xsd:element ibmSchExtn:docRoot="true" name="LogMessage">
+		<xsd:complexType>
+			<xsd:sequence dfdl:separator="">
+				<xsd:element dfdl:terminator="%CR;%LF;%WSP*;" name="Log">
+					<xsd:complexType>
+						<xsd:sequence dfdl:separatorSuppressionPolicy="trailingEmpty">
+		<xsd:element minOccurs="0" name="MessageType" type="xsd:string"/>
+		<xsd:element minOccurs="0" name="TimeStamp" type="xsd:string"/>
+		<xsd:element minOccurs="0" name="GlobalTransactionId" type="xsd:string"/>
+        <xsd:element minOccurs="0" name="LocalTransactionId" type="xsd:string"/>
+        <xsd:element minOccurs="0" name="ParentTransactionId" type="xsd:string"/>
+        <xsd:element minOccurs="0" name="ProjectName" type="xsd:string"/>
+       <xsd:element minOccurs="0" name="InterfaceName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="SourceApplicationName" type="xsd:string"/>
+       <xsd:element minOccurs="0" name="TargetApplicationName" type="xsd:string"/>
+       <xsd:element minOccurs="0" name="ToolName" type="xsd:string"/>
+       <xsd:element minOccurs="0" name="Version" type="xsd:string"/>
+     <xsd:element minOccurs="0" name="BrokerName" type="xsd:string"/>
+    <xsd:element minOccurs="0" name="ExecutionGroup" type="xsd:string"/>
+   <xsd:element minOccurs="0" name="Flowname" type="xsd:string"/>
+  <xsd:element minOccurs="0" name="AuditPoint" type="xsd:string"/>
+ <xsd:element minOccurs="0" name="AuditType" type="xsd:string"/>
+ <xsd:element minOccurs="0" name="QueueManager" type="xsd:string"/>
+  <xsd:element minOccurs="0" name="InputQueue" type="xsd:string"/>
+ <xsd:element minOccurs="0" name="MessageId" type="xsd:string"/>
+ <xsd:element minOccurs="0" name="PutDate" type="xsd:string"/>
+  <xsd:element minOccurs="0" name="PutTime" type="xsd:string"/>
+ <xsd:element minOccurs="0" name="CodedCharSetId" type="xsd:string"/>
+ <xsd:element minOccurs="0" name="Encoding" type="xsd:string"/>
+  <xsd:element minOccurs="0" name="MessageSet" type="xsd:string"/>
+ <xsd:element minOccurs="0" name="MessageFormat" type="xsd:string"/>
+ <xsd:element minOccurs="0" name="IsPersistant" type="xsd:string"/>
+  <xsd:element minOccurs="0" name="OriginalMessage" type="xsd:string"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>				
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+
+</xsd:schema>
