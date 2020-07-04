@@ -1,0 +1,91 @@
+﻿@page
+@model PMK_IntCoE_Services.Pages.AEDash.ViewAuditModel
+
+@{
+    ViewData["Title"] = "ViewAudit";
+}
+
+    <h1 class="text-center">@ViewData["Title"]</h1>
+    <table class="table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditDataList[0].AUDIT_TIMESTAMP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditDataList[0].PROJECTNAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditDataList[0].INTERFACE_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditDataList[0].INTERFACENAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditDataList[0].AUDITTYPE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditDataList[0].KEYIDENTIFIER)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditDataList[0].MESSAGEID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditDataList[0].BROKERNAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditDataList[0].GLOBALTRANSACTIONID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditDataList[0].MSGFLOW)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.AuditDataList) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AUDIT_TIMESTAMP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PROJECTNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.INTERFACE_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.INTERFACENAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AUDITTYPE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KEYIDENTIFIER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MESSAGEID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BROKERNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GLOBALTRANSACTIONID)
+                </td>
+                <th>
+                    @Html.DisplayFor(model => item.MSGFLOW)
+                </th>
+
+                <td>
+                    <a asp-page="./AuditDetail" asp-route-id="@item.ROWID">Details</a>
+                    @*|<a asp-page="./Edit" asp-route-id="@item.ROWID">Edit</a>  |
+            <a asp-page="./Delete" asp-route-id="@item.ROWID">Delete</a>*@
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+
+    <div class="row lead">
+        <a asp-page="/AEDash/AEDashIndex">Dashboard Index</a>
+    </div>

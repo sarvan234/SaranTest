@@ -1,0 +1,26 @@
+﻿@page
+@model IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Primark Integration Dashboards</h1>
+    <p class="lead text-justify">Integartion CoE is one of the core area for Primark ICT </p>
+    <p class="lead text-justify">This Dashboard enables easy access to the audit data of Integration to be easily accessible by Primark Internal users for testing and BAU Purposes</p>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="btn btn-primary btn-lg" asp-page="/AEDash/AEDashIndex">Audit Dashboard</a>
+        <a href="https://primark.sharepoint.com/IntegrationExcellence/CoE%20Documents/Forms/AllItems.aspx" class="btn btn-primary btn-lg">CoE Documents &raquo;</a>
+    }
+</div>
+<div class="row">
+    <h2>Getting Access</h2>
+</div>
+<div class="row">
+    <p class="lead text-justify">Access can be obtained by getting in touch with Integration TCS CoE team</p>
+</div>

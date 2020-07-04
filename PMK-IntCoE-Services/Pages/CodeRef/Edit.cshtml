@@ -1,0 +1,151 @@
+﻿@page
+@model PMK_IntCoE_Services.Pages.CodeRef.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>ESB_AUDIT_LOGGER</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ESB_AUDIT_LOGGER.ROWID" />
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.MESSAGETYPE" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.MESSAGETYPE" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.MESSAGETYPE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.AUDIT_TIMESTAMP" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.AUDIT_TIMESTAMP" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.AUDIT_TIMESTAMP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.GLOBALTRANSACTIONID" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.GLOBALTRANSACTIONID" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.GLOBALTRANSACTIONID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.LOCALTRANSACTIONID" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.LOCALTRANSACTIONID" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.LOCALTRANSACTIONID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.PARENTTRANSACTIONID" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.PARENTTRANSACTIONID" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.PARENTTRANSACTIONID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.PROJECTNAME" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.PROJECTNAME" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.PROJECTNAME" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.INTERFACE_ID" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.INTERFACE_ID" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.INTERFACE_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.INTERFACENAME" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.INTERFACENAME" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.INTERFACENAME" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.SOURCEAPP" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.SOURCEAPP" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.SOURCEAPP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.DESTINATIONAPP" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.DESTINATIONAPP" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.DESTINATIONAPP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.AUDITTYPE" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.AUDITTYPE" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.AUDITTYPE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.TOOLNAME" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.TOOLNAME" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.TOOLNAME" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.BROKERNAME" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.BROKERNAME" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.BROKERNAME" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.BROKERFAMILY" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.BROKERFAMILY" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.BROKERFAMILY" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.EXECUTIONGROUP" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.EXECUTIONGROUP" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.EXECUTIONGROUP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.QUEUEMANAGER" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.QUEUEMANAGER" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.QUEUEMANAGER" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.INPUTQUEUE" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.INPUTQUEUE" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.INPUTQUEUE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.MSGFLOW" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.MSGFLOW" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.MSGFLOW" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.KEYIDENTIFIER" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.KEYIDENTIFIER" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.KEYIDENTIFIER" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.ORIGINALMESSAGE" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.ORIGINALMESSAGE" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.ORIGINALMESSAGE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.MESSAGEDETAILS" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.MESSAGEDETAILS" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.MESSAGEDETAILS" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.MISCELLANEOUS" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.MISCELLANEOUS" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.MISCELLANEOUS" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.MESSAGEID" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.MESSAGEID" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.MESSAGEID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ESB_AUDIT_LOGGER.INSERT_TIMESTAMP" class="control-label"></label>
+                <input asp-for="ESB_AUDIT_LOGGER.INSERT_TIMESTAMP" class="form-control" />
+                <span asp-validation-for="ESB_AUDIT_LOGGER.INSERT_TIMESTAMP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

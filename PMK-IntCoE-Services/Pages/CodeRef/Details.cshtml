@@ -1,0 +1,164 @@
+﻿@page
+@model PMK_IntCoE_Services.Pages.CodeRef.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ESB_AUDIT_LOGGER</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.MESSAGETYPE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.MESSAGETYPE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.AUDIT_TIMESTAMP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.AUDIT_TIMESTAMP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.GLOBALTRANSACTIONID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.GLOBALTRANSACTIONID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.LOCALTRANSACTIONID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.LOCALTRANSACTIONID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.PARENTTRANSACTIONID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.PARENTTRANSACTIONID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.PROJECTNAME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.PROJECTNAME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.INTERFACE_ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.INTERFACE_ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.INTERFACENAME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.INTERFACENAME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.SOURCEAPP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.SOURCEAPP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.DESTINATIONAPP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.DESTINATIONAPP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.AUDITTYPE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.AUDITTYPE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.TOOLNAME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.TOOLNAME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.BROKERNAME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.BROKERNAME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.BROKERFAMILY)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.BROKERFAMILY)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.EXECUTIONGROUP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.EXECUTIONGROUP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.QUEUEMANAGER)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.QUEUEMANAGER)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.INPUTQUEUE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.INPUTQUEUE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.MSGFLOW)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.MSGFLOW)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.KEYIDENTIFIER)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.KEYIDENTIFIER)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.ORIGINALMESSAGE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.ORIGINALMESSAGE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.MESSAGEDETAILS)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.MESSAGEDETAILS)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.MISCELLANEOUS)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.MISCELLANEOUS)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.MESSAGEID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.MESSAGEID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER.INSERT_TIMESTAMP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_AUDIT_LOGGER.INSERT_TIMESTAMP)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ESB_AUDIT_LOGGER.ROWID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

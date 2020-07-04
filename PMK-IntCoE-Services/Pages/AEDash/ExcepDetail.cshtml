@@ -1,0 +1,194 @@
+﻿@page
+@model PMK_IntCoE_Services.Pages.AEDash.ExcepDetailModel
+
+@{
+    ViewData["Title"] = "ExcepDetail";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+    <h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>ESB_EXCEPTION_LOGGER</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.MESSAGETYPE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.MESSAGETYPE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.EXCEPTION_TIMESTAMP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.EXCEPTION_TIMESTAMP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.GLOBALTRANSACTIONID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.GLOBALTRANSACTIONID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.LOCALTRANSACTIONID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.LOCALTRANSACTIONID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.PARENTTRANSACTIONID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.PARENTTRANSACTIONID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.PROJECTNAME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.PROJECTNAME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.INTERFACE_ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.INTERFACE_ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.INTERFACENAME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.INTERFACENAME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.SOURCEAPP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.SOURCEAPP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.DESTINATIONAPP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.DESTINATIONAPP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.AUDITTYPE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.AUDITTYPE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.TOOLNAME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.TOOLNAME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.BROKERNAME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.BROKERNAME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.BROKERFAMILY)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.BROKERFAMILY)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.EXECUTIONGROUP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.EXECUTIONGROUP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.QUEUEMANAGER)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.QUEUEMANAGER)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.INPUTQUEUE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.INPUTQUEUE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.MSGFLOW)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.MSGFLOW)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.EXCEPTIONNUMBER)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.EXCEPTIONNUMBER)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.SEVERITY)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.SEVERITY)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.CATEGORY)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.CATEGORY)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.DETAILERRORMESSAGE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.DETAILERRORMESSAGE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.ERRORSOURCE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.ERRORSOURCE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.KEYIDENTIFIER)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.KEYIDENTIFIER)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.ORIGINALMESSAGE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.ORIGINALMESSAGE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.MESSAGEDETAILS)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.MESSAGEDETAILS)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.MISCELLANEOUS)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.MISCELLANEOUS)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.MESSAGEID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.MESSAGEID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ESB_EXCEPTION_LOGGER.INSERT_TIMESTAMP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ESB_EXCEPTION_LOGGER.INSERT_TIMESTAMP)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ESB_EXCEPTION_LOGGER.ROWID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -1,0 +1,59 @@
+﻿@page
+@model PMK_IntCoE_Services.Pages.ManageUsers.ListUsersModel
+
+@{
+    ViewData["Title"] = "ListUsers";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">List Users</h1>
+
+@if (Model.UserList.Any())
+{
+    <a class="btn btn-primary" style="width:auto"
+       asp-area="Identity" asp-page="/Account/Register">
+        Add New User
+    </a>
+
+    foreach (var user in Model.UserList)
+    {
+<div class="card mb-auto">
+    <div class="card-header">
+        User Id : @user.Id
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@user.UserName</h5>
+        @*<h5 class="card-text">@Model.</h5>*@
+    </div>
+    <div class="card-footer">
+        <a href="#" class="btn btn-danger">Edit</a>
+        <a href="#" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No users created yet
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Use the button below to create a user
+            </h5>
+            <a class="btn btn-primary" style="width:auto"
+               asp-area="Identity" asp-page="/Account/Register">
+                Add New User
+            </a>
+        </div>
+    </div>
+}
+
+@*<br />
+    <div class="float-md-right">
+        <a class="btn btn-primary" style="width:auto"
+           asp-area="Identity" asp-page="/Account/Register">
+            Add New User
+        </a>
+    </div>*@

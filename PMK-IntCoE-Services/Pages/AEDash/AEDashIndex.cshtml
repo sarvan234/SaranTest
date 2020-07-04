@@ -1,0 +1,32 @@
+﻿@page
+@model PMK_IntCoE_Services.Pages.AEDash.AEDashIndexModel
+@{
+    ViewData["Title"] = "AEDashIndex";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Primark Integration Dashboards</h1>
+<div class=" row jumbotron align-top">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4>Choose Interface Name to View Log.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.IName"></label>
+                <select asp-for="Input.IName" asp-items="Model.SelectIName" class="form-control">
+                    <option value="">-- Select Interface --</option>
+                </select>
+                <span asp-validation-for="Input.IName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="Audit" value="Audit" class="btn btn-primary">View Audit Data</button>
+                <button type="submit" name="Excep" value="Excep" class="btn btn-primary">View Exception Data</button>
+            </div>
+        </form>
+    </div>
+    </div>
+
+        <div class="row lead">
+            <a asp-page="/Index">Return to Home</a>
+        </div>

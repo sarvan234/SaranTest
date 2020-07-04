@@ -1,0 +1,114 @@
+﻿@page
+@model PMK_IntCoE_Services.Pages.AEDash.ViewExceptionModel
+
+@{
+    ViewData["Title"] = "View Exceptions";
+}
+
+<h1>@ViewData["Title"] </h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].EXCEPTION_TIMESTAMP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].GLOBALTRANSACTIONID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].PROJECTNAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].INTERFACE_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].INTERFACENAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].AUDITTYPE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].BROKERNAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].INPUTQUEUE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].MSGFLOW)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].EXCEPTIONNUMBER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].ERRORSOURCE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].KEYIDENTIFIER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcepDataList[0].MESSAGEID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ExcepDataList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EXCEPTION_TIMESTAMP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GLOBALTRANSACTIONID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PROJECTNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.INTERFACE_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.INTERFACENAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AUDITTYPE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BROKERNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.INPUTQUEUE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MSGFLOW)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EXCEPTIONNUMBER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SEVERITY)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CATEGORY)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ERRORSOURCE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KEYIDENTIFIER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MESSAGEID)
+                </td>
+                <td>
+                    <a asp-page="./ExcepDetail" asp-route-id="@item.ROWID">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="row lead">
+    <a asp-page="/AEDash/AEDashIndex">Dashboard Index</a>
+</div>

@@ -1,0 +1,175 @@
+﻿@page
+@model PMK_IntCoE_Services.Pages.CodeRef.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].MESSAGETYPE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].AUDIT_TIMESTAMP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].GLOBALTRANSACTIONID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].LOCALTRANSACTIONID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].PARENTTRANSACTIONID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].PROJECTNAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].INTERFACE_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].INTERFACENAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].SOURCEAPP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].DESTINATIONAPP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].AUDITTYPE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].TOOLNAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].BROKERNAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].BROKERFAMILY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].EXECUTIONGROUP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].QUEUEMANAGER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].INPUTQUEUE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].MSGFLOW)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].KEYIDENTIFIER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].ORIGINALMESSAGE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].MESSAGEDETAILS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].MISCELLANEOUS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].MESSAGEID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ESB_AUDIT_LOGGER[0].INSERT_TIMESTAMP)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ESB_AUDIT_LOGGER) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MESSAGETYPE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AUDIT_TIMESTAMP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GLOBALTRANSACTIONID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LOCALTRANSACTIONID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PARENTTRANSACTIONID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PROJECTNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INTERFACE_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INTERFACENAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SOURCEAPP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DESTINATIONAPP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AUDITTYPE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TOOLNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BROKERNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BROKERFAMILY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EXECUTIONGROUP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QUEUEMANAGER)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INPUTQUEUE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MSGFLOW)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KEYIDENTIFIER)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ORIGINALMESSAGE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MESSAGEDETAILS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MISCELLANEOUS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MESSAGEID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INSERT_TIMESTAMP)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ROWID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ROWID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ROWID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
